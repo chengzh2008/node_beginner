@@ -1,15 +1,14 @@
-var handlers = exports = module.exports = {}; //jshint ignore:line
+var exec = require('child_process').exec,
+    handlers = exports = module.exports = {}; //jshint ignore:line
 handlers.start = function () {
     console.log('Request handler.start was called');
+    var content = "empty";
 
-    function sleep(milliSeconds) {
-        var startTime = new Date().getTime();
-        while(new Date().getTime() < startTime + milliSeconds);
-    }
+    exec("ls -lah", function(err, stdout, stderr) {
+        content = stdout;
+    });
 
-    sleep(10000);
-
-    return 'Hello Start';
+    return content;
 };
 
 handlers.upload = function () {
